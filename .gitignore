@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Secrets and credentials — never commit these
+auth.json
+.env
+.env.*
+*.key
+*.pem
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Generated public copy (produced by _core/make_public.py)
+-stepfun-api-v2-standard-public/
+
+# Generated static site (built by showcase/build_site.py)
+showcase/_site/

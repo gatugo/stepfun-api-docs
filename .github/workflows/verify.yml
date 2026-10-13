@@ -1,0 +1,29 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Gate 1 — structural invariants: routing budgets, card frontmatter,
+      # sources exist, links resolve, no credentials, no off-plan models.
+      - name: Integrity gate
+        run: python3 _core/check_integrity.py
+
+      # Gate 2 — can a fresh agent route from the map alone? 23 probes.
+      - name: Cold-walk gate
+        run: python3 _core/cold_walk.py
+
+      # The demo must stay reproducible — every number it prints is measured.
+      - name: Demo script runs clean
+        run: bash showcase/demo.sh
